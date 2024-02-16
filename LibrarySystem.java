@@ -4,8 +4,10 @@
 
 import java.util.Scanner;
 
-public class LibrarySystem {
+import javax.swing.text.DefaultEditorKit.InsertBreakAction;
 
+public class LibrarySystem {
+//
     public static void main(String[] args) {
         LibraryCollection collection = new LibraryCollection();
         try (Scanner scanner = new Scanner(System.in)) {
@@ -22,10 +24,15 @@ public class LibrarySystem {
                     case 1:
                         // Add a book (Librarian only)
                         System.out.println("Adding a book (Librarian action)...");
+                        scanner.nextLine();
                         // Dummy book details for simplicity
-                        Book newBook = new Book(collection.getBooks().size() + 1, "Book Title", "Author Name");
+                        System.out.println("Enter the author's name: ");
+                        String author = scanner.nextLine();
+                        System.out.println("Enter the book title: ");
+                        String title = scanner.nextLine();
+                        Book newBook = new Book(collection.getBooks().size() + 1, title , author);
                         librarian.addBook(newBook);
-                        System.out.println("Book added: " + newBook.getTitle());
+                        System.out.print("Book added: ID: " + "\u001B[31m" + newBook.getID() + "\u001B[0m" + ", Title: " + "\u001B[31m" + newBook.getTitle() + "\u001B[0m" + ", Author: " +  "\u001B[31m" + newBook.getAuthor() + "\u001B[0m" + "\n");
                         break;
                     case 2:
                         // Borrow a book (Member action)
@@ -34,7 +41,7 @@ public class LibrarySystem {
                         Book bookToBorrow = collection.findBookByID(bookIDToBorrow);
                         if (bookToBorrow != null && bookToBorrow.isAvailable()) {
                             member.borrowBook(bookToBorrow);
-                            System.out.println("Book borrowed: " + bookToBorrow.getTitle());
+                            System.out.println("Book borrowed: " + "\u001B[31m" + bookToBorrow.getTitle() + "\u001B[0m");
                         } else {
                             System.out.println("Book is not available or does not exist.");
                         }
@@ -46,7 +53,7 @@ public class LibrarySystem {
                         Book bookToReturn = collection.findBookByID(bookIDToReturn);
                         if (bookToReturn != null) {
                             member.returnBook(bookToReturn);
-                            System.out.println("Book returned: " + bookToReturn.getTitle());
+                            System.out.println("Book returned: " + "\u001B[31m" + bookToReturn.getTitle() + "\u001B[0m");
                         } else {
                             System.out.println("Book does not exist.");
                         }
