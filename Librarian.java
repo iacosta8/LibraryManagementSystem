@@ -19,6 +19,11 @@ public class Librarian extends Member implements Manageable {
     public void removeBook(Book book) {
         collection.removeBook(book);
     }
+    
+    // Method to get the Librarian's collection
+    public LibraryCollection getCollection() {
+        return this.collection;
+    }
 }
 
 

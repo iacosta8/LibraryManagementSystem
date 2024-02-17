@@ -27,7 +27,13 @@ public class Member {
     }
 
     public void returnBook(Book book) {
-        book.returnBook(); // Update the book's availability
-        borrowedBooks.remove(book);
+        // Check if the book is in the borrowedBooks list before returning
+        if (borrowedBooks.contains(book)) {
+            book.returnBook(); // Update the book's availability
+            borrowedBooks.remove(book);
+            System.out.println("Book returned: " + book.getTitle());
+        } else {
+            System.out.println("You haven't borrowed this book.");
+        }
     }
 }
